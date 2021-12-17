@@ -132,6 +132,16 @@ int main()
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, texture1);
 
+
+    // model, view, projection matrices
+    glm::mat4 model = glm::mat4(1.0f);
+    model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1, 0, 0));
+
+    glm::mat4 view = glm::mat4(1.0f);
+    view = glm::translate(view, glm::vec3(0, 0, -3));
+
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
     // Loop until the user closes the window
     while(!glfwWindowShouldClose(window))
     {
@@ -143,10 +153,9 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         basicShader.use();
-        glm::mat4 trans = glm::mat4(1.0f);
-        trans = glm::translate(trans, glm::vec3(0.5, -0.5, 0.0));
-        trans = glm::rotate(trans, static_cast<float>(glfwGetTime()), glm::vec3(0.0, 0.0, 1.0));
-        basicShader.setMat4("transform", trans);
+        basicShader.setMat4("model", model);
+        basicShader.setMat4("view", view);
+        basicShader.setMat4("projection", projection);
 
         // Draw the triangle
         glBindVertexArray(VAO);
