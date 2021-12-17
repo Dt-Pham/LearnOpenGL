@@ -4,6 +4,7 @@ project(LearnOpenGL)
 
 configure_file(src/helpers/root_dir.h.in src/helpers/root_dir.h)
 include_directories(${CMAKE_BINARY_DIR}/src)
+include_directories(third_party)
 
 include(third_party/build_files/common_packages.cmake)
 
