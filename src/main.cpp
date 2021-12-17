@@ -40,7 +40,7 @@ int main()
         return -1;
     }
     
-    Shader basicShader(ROOT_DIR"src/Shaders/basic.vsh", ROOT_DIR"src/Shaders/basic.fsh");
+    Shader basicShader(ROOT_DIR"src/Shaders/basic.vs", ROOT_DIR"src/Shaders/basic.fs");
     
     // NDC coordinates of a rectangle
     float vertices[] = {
