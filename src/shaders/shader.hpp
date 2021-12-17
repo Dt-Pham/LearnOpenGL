@@ -3,6 +3,9 @@
 
 #include <glad/glad.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <string>
 #include <fstream>
 #include <sstream>
@@ -25,7 +28,8 @@ public:
     void setBool(const char *name, bool value) const;
     void setInt(const char *name, int value) const;
     void setFloat(const char *name, float value) const;
-    
+    void setMat4(const char *name, glm::mat4 value) const;
+
 private:
     unsigned int programID;
 };
