@@ -15,6 +15,8 @@ add_executable(${TARGET_NAME}
         src/main.cpp
         src/shaders/shader.cpp
         src/shaders/shader.hpp
+        src/camera/camera.cpp
+        src/camera/camera.hpp
         )
 
 # set target properties
