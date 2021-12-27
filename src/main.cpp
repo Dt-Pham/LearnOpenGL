@@ -195,6 +195,7 @@ int main()
 
         // render other objects
         lightingShader.use();
+        lightingShader.setVec3("viewPos", mainCamera.Position());
         lightingShader.setVec3("lightPos", lightSourcePosition);
         lightingShader.setVec3("objectColor", objectColor);
         lightingShader.setVec3("lightColor", lightColor);
