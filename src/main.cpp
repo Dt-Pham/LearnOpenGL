@@ -14,6 +14,7 @@
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void mouse_callback(GLFWwindow *window, double xPos, double yPos);
+void mouse_button_callback(GLFWwindow *window, int button, int action, int mods);
 void scroll_callback(GLFWwindow *window, double xOffset, double yOffset); 
 void processInput(GLFWwindow* window);
 
@@ -26,6 +27,7 @@ Camera mainCamera(glm::vec3(0, 0, 3));
 float lastX = SCR_WIDTH / 2;
 float lastY = SCR_HEIGHT / 2;
 bool firstMouse = true;
+bool mousePressed = false;
 
 // timing
 float deltaTime = 0.0f;
@@ -56,6 +58,7 @@ int main()
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
     // Initialize the OpenGL API with GLAD
@@ -258,6 +261,9 @@ void processInput(GLFWwindow *window)
 
 void mouse_callback(GLFWwindow *window, double xPos, double yPos)
 {
+    if (!mousePressed)
+        return;
+
     if (firstMouse)
     {
         lastX = xPos;
@@ -272,6 +278,18 @@ void mouse_callback(GLFWwindow *window, double xPos, double yPos)
     lastY = yPos;
 
     mainCamera.ProcessMouseMovement(xOffset, yOffset);
+}
+
+void mouse_button_callback(GLFWwindow *window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+    {
+        mousePressed = true;
+        firstMouse = true;
+    }
+
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+        mousePressed = false;
 }
 
 void scroll_callback(GLFWwindow *window, double xOffset, double yOffset)
