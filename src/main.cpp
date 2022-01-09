@@ -120,7 +120,7 @@ int main()
     };
 
     // Light source position
-    glm::vec3 lightSourcePosition = glm::vec3(1, 2, -3);
+    glm::vec3 lightSourcePosition = glm::vec3(1.2f, 1.0f, 2.0f);
 
     // Cube positions
     glm::vec3 cubePositions[] = {
@@ -137,7 +137,11 @@ int main()
     };    
 
     glm::vec3 lightColor = glm::vec3(1, 1, 1);
-    glm::vec3 objectColor = glm::vec3(1, 0.5, 0.3);
+    glm::vec3 materialAmbient = glm::vec3(1.0f, 0.5f, 0.31f);
+    glm::vec3 materialDiffuse = glm::vec3(1.0f, 0.5f, 0.31f);
+    glm::vec3 materialSpecular = glm::vec3(0.5f, 0.5f, 0.5f);
+    float materialShininess = 128.0f;
+
 
     // Set up VAO and VBO
     unsigned int cubeVAO;
@@ -190,6 +194,7 @@ int main()
         lightSourceShader.setVec3("lightColor", lightColor);
         glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, lightSourcePosition);
+        model = glm::scale(model, glm::vec3(0.2f));
         lightSourceShader.setMat4("model", model);
         lightSourceShader.setMat4("view", view);
         lightSourceShader.setMat4("projection", projection);
@@ -199,9 +204,14 @@ int main()
         // render other objects
         lightingShader.use();
         lightingShader.setVec3("viewPos", mainCamera.Position());
-        lightingShader.setVec3("lightPos", lightSourcePosition);
-        lightingShader.setVec3("objectColor", objectColor);
-        lightingShader.setVec3("lightColor", lightColor);
+        lightingShader.setVec3("light.position", lightSourcePosition);
+        lightingShader.setVec3("light.ambient",  glm::vec3(0.2f, 0.2f, 0.2f));
+        lightingShader.setVec3("light.diffuse",  glm::vec3(0.5f, 0.5f, 0.5f)); // darken diffuse light a bit
+        lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f)); 
+        lightingShader.setVec3("material.ambient", materialAmbient);
+        lightingShader.setVec3("material.diffuse", materialDiffuse);
+        lightingShader.setVec3("material.specular", materialSpecular);
+        lightingShader.setFloat("material.shininess", materialShininess);
         lightingShader.setMat4("view", view);
         lightingShader.setMat4("projection", projection);
 
