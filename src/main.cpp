@@ -122,6 +122,7 @@ int main()
 
     // Light source position
     glm::vec3 lightSourcePosition = glm::vec3(1.2f, 1.0f, 2.0f);
+    glm::vec3 lightSourceDirection = glm::vec3(-0.2f, -1.0f, -0.3f);
 
     // Cube positions
     glm::vec3 cubePositions[] = {
@@ -200,6 +201,7 @@ int main()
                                                 static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 
                                                 0.1f, 100.0f);
 
+/*
         // Render light source
         lightSourceShader.use();
         lightSourceShader.setVec3("lightColor", lightColor);
@@ -211,11 +213,12 @@ int main()
         lightSourceShader.setMat4("projection", projection);
         glBindVertexArray(lightSourceVAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);
-
+*/
         // render other objects
         lightingShader.use();
         lightingShader.setVec3("viewPos", mainCamera.Position());
-        lightingShader.setVec3("light.position", lightSourcePosition);
+        // lightingShader.setVec3("light.position", lightSourcePosition);
+        lightingShader.setVec3("light.direction", lightSourceDirection);
         lightingShader.setVec3("light.ambient",  glm::vec3(0.2f, 0.2f, 0.2f));
         lightingShader.setVec3("light.diffuse",  glm::vec3(0.5f, 0.5f, 0.5f)); // darken diffuse light a bit
         lightingShader.setVec3("light.specular", glm::vec3(1.0f, 1.0f, 1.0f)); 
@@ -232,7 +235,7 @@ int main()
         glBindTexture(GL_TEXTURE_2D, specularMap);
 
         glBindVertexArray(cubeVAO);
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 10; i++)
         {
             glm::mat4 model = glm::mat4(1.0f);
             model = glm::translate(model, cubePositions[i]);
