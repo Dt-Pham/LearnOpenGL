@@ -15,7 +15,11 @@ target_link_libraries(${TARGET_NAME} ${OPENGL_opengl_LIBRARY} ${GLFW_LIBRARIES})
 
 target_link_libraries(${TARGET_NAME} ${OPENGL_glu_LIBRARY} ${OPENGL_glx_LIBRARY})
 
+target_link_libraries(${TARGET_NAME} ${ASSIMP_LIBRARIES})
+
 target_link_libraries(${TARGET_NAME} GLAD STB_IMAGE)
 
 message( "GLFW Include : " ${GLFW_INCLUDE_DIRS} )
 message( "GLFW Libs : " ${GLFW_LIBRARIES} )
+message( "ASSIMP Include :" ${ASSIMP_INCLUDE_DIRS})
+message( "ASSIMP Libs: " ${ASSIMP_LIBRARIES})
